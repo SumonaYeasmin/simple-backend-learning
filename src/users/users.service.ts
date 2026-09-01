@@ -33,4 +33,43 @@ export class UsersService {
     async deleteUser(id: number) { return await prisma.user.delete({ where: { id }, }); }
 
 
+    async getUser() {
+    const page = 2;
+    const limit = 10;
+    const search = 'sum';
+
+    const users = await prisma.user.findMany({
+      // 🔍 Search + Filter
+      where: {
+        OR: [
+          {
+            name: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+          {
+            email: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+        ],
+
+       
+      },
+
+      // 🔃 Sort
+      orderBy: {
+        name: 'asc',
+      },
+
+      // 📄 Pagination
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    return users;
+  }
 }
+
