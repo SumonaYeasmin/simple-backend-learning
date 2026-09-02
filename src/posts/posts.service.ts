@@ -43,6 +43,7 @@ async createUserWithPost() {
     data: {
       name: 'Rahim',
       email: 'rahim@gmail.com',
+       password: 'mypassword123',
 
       posts: {
         create: {
