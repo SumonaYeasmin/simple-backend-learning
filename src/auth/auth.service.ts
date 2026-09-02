@@ -9,6 +9,11 @@ import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
 export class AuthService {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+
   async register(registerDto: RegisterDto) {
     const { name, email, password } = registerDto;
 
@@ -31,10 +36,7 @@ export class AuthService {
       },
     };
   }
-constructor(
-  private readonly prisma: PrismaService,
-  private readonly jwtService: JwtService,
-) {}
+
   async login(loginDto: LoginDto) {
   const { email, password } = loginDto;
 
